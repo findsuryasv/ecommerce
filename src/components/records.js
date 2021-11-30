@@ -1,6 +1,13 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
-const Records = (props) => {
+const Records = () => {
+
+  const data = useSelector(state => {
+    console.log(state);
+    return state || [];
+  })
+  
     return (
         <div>
              <table className="table table-light">
@@ -15,14 +22,14 @@ const Records = (props) => {
           <tbody>
             
               {
-                props.data.map((record) => (
+                data.map((record) => (
                   <tr>
                 <td>{record.userId}</td>
                 <td>{record.title}</td>
                 <td>{record.body}</td>
                 <td className="d-flex">
-                    <button className="btn btn-danger me-3" onClick={() => props.handleDelete(record)}>Delete</button>
-                    <button className="btn btn-success" onClick={() => props.handleEdit(record)}>Edit</button>
+                    <button className="btn btn-danger me-3" onClick={() => {}}>Delete</button>
+                    <button className="btn btn-success" onClick={() => {}}>Edit</button>
                      </td>
                 </tr>
                 ))
