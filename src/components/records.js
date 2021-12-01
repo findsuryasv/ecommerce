@@ -1,12 +1,30 @@
+import axios from 'axios';
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { DeletePost, getEditablePostData } from '../store/actions';
 
 const Records = () => {
 
   const data = useSelector(state => {
     console.log(state);
-    return state || [];
+    return state?.records || [];
   })
+
+  const dispatch = useDispatch();
+
+  const deletePost = async (record) => {
+    try {
+      const res = await axios.delete(`https://jsonplaceholder.typicode.com/posts/${record.id}`);
+      console.log(record);
+      dispatch(DeletePost(record));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const bindEditPostToStore = (record) => {
+    dispatch(getEditablePostData(record));
+  }
   
     return (
         <div>
@@ -28,8 +46,8 @@ const Records = () => {
                 <td>{record.title}</td>
                 <td>{record.body}</td>
                 <td className="d-flex">
-                    <button className="btn btn-danger me-3" onClick={() => {}}>Delete</button>
-                    <button className="btn btn-success" onClick={() => {}}>Edit</button>
+                    <button className="btn btn-danger me-3" onClick={() => deletePost(record)}>Delete</button>
+                    <button className="btn btn-success" onClick={() => bindEditPostToStore(record)}>Edit</button>
                      </td>
                 </tr>
                 ))

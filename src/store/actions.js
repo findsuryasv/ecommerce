@@ -12,6 +12,13 @@ export const EditPost = (payload) => {
     }
 }
 
+export const getEditablePostData = (payload) => {
+    return {
+        type: 'Get Editable Post Data Post',
+        payload
+    }
+}
+
 export const DeletePost = (payload) => {
     return {
         type: 'Delete Post',
